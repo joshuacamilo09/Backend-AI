@@ -1,4 +1,4 @@
-# Relatório Individual — Fase II: Ideação  
+#  Fase II: Ideação  
 ## Projeto: BackendAI  
 **Unidade Curricular:** Projeto Desenvolvimento Web  
 **Professora da UC:** Maria Pires
