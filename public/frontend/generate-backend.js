@@ -4,6 +4,24 @@ const user = window.BackendAIUser || {
     initials: "U",
 };
 
+function loadTemplateIfExists() {
+    const textarea = document.getElementById("backendDescription");
+
+    const template = localStorage.getItem("backend_template");
+
+    console.log("Template recebido:", template); // DEBUG
+
+    if (template && textarea) {
+        textarea.value = template;
+
+        localStorage.removeItem("backend_template");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadTemplateIfExists();
+});
+
 function escapeHtml(value) {
     return String(value ?? "")
         .replaceAll("&", "&amp;")
