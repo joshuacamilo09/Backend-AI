@@ -727,3 +727,26 @@ tbody tr:hover {
     align-items: flex-start;
   }
 }
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.template-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.template-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 10px 0 16px;
+}
+
+.template-actions {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -31,10 +31,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('templates');
     })->name('templates');
 
-    Route::get('/documentation', function () {
-        return view('documentation');
-    })->name('documentation');
-
     Route::get('/settings', function () {
         return view('settings');
     })->name('settings');

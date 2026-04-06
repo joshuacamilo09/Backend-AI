@@ -25,11 +25,6 @@
             <span>Templates</span>
         </a>
 
-        <a href="{{ route('documentation') }}" class="menu-item {{ request()->routeIs('documentation') ? 'active' : '' }}">
-            <img src="{{ asset('frontend/assets/icons/docs.png') }}" alt="" class="icon" />
-            <span>Documentation</span>
-        </a>
-
         <a href="{{ route('settings') }}" class="menu-item {{ request()->routeIs('settings') ? 'active' : '' }}">
             <img src="{{ asset('frontend/assets/icons/settings.png') }}" alt="" class="icon" />
             <span>Settings</span>
