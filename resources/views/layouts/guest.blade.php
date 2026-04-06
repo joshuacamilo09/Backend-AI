@@ -17,15 +17,15 @@
 
         <style>
             :root {
-                --bg: #050816;
-                --bg-secondary: #09122a;
-                --panel: rgba(12, 20, 38, 0.88);
-                --panel-border: rgba(96, 165, 250, 0.14);
+                --bg: #0b0d17;
+                --bg-secondary: #0e1020;
+                --panel: rgba(14, 16, 32, 0.88);
+                --panel-border: rgba(124, 58, 237, 0.18);
                 --text: #f8fafc;
                 --text-muted: #94a3b8;
-                --primary: #3b82f6;
-                --primary-hover: #2563eb;
-                --glow: rgba(59, 130, 246, 0.22);
+                --primary: #7c3aed;
+                --primary-hover: #8b49f5;
+                --glow: rgba(124, 58, 237, 0.22);
             }
 
             * {
@@ -37,9 +37,9 @@
                 font-family: "DM Sans", sans-serif;
                 color: var(--text);
                 background:
-                    radial-gradient(circle at top left, rgba(37, 99, 235, 0.20), transparent 28%),
-                    radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 22%),
-                    linear-gradient(180deg, #050816 0%, #08112a 52%, #050816 100%);
+                    radial-gradient(circle at top left, rgba(100, 40, 200, 0.18), transparent 28%),
+                    radial-gradient(circle at top right, rgba(124, 58, 237, 0.14), transparent 22%),
+                    linear-gradient(180deg, #0b0d17 0%, #0e1020 52%, #0b0d17 100%);
                 min-height: 100vh;
             }
 
@@ -58,9 +58,9 @@
                 justify-content: space-between;
                 border-right: 1px solid rgba(148, 163, 184, 0.08);
                 background:
-                    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.18), transparent 25%),
-                    radial-gradient(circle at 80% 30%, rgba(29, 78, 216, 0.16), transparent 22%),
-                    linear-gradient(180deg, rgba(7, 14, 31, 0.96) 0%, rgba(6, 12, 28, 0.92) 100%);
+                    radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.16), transparent 25%),
+                    radial-gradient(circle at 80% 30%, rgba(100, 40, 200, 0.14), transparent 22%),
+                    linear-gradient(180deg, rgba(11, 13, 23, 0.96) 0%, rgba(10, 12, 22, 0.92) 100%);
             }
 
             .auth-brand::after {
@@ -77,7 +77,7 @@
             .auth-logo {
                 display: inline-flex;
                 align-items: center;
-                gap: 12px;
+                gap: 6px;
                 text-decoration: none;
                 color: var(--text);
                 font-weight: 700;
@@ -92,7 +92,7 @@
             }
 
             .auth-logo span {
-                color: #60a5fa;
+                color: #a78bfa;
             }
 
             .auth-copy {
@@ -137,8 +137,8 @@
                 width: 10px;
                 height: 10px;
                 border-radius: 999px;
-                background: #3b82f6;
-                box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.12);
+                background: #7c3aed;
+                box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.12);
                 flex-shrink: 0;
             }
 
@@ -170,8 +170,8 @@
                 display: inline-block;
                 padding: 6px 10px;
                 border-radius: 999px;
-                background: rgba(59, 130, 246, 0.10);
-                color: #93c5fd;
+                background: rgba(124, 58, 237, 0.10);
+                color: #c084fc;
                 font-size: 0.78rem;
                 font-weight: 600;
                 letter-spacing: 0.01em;

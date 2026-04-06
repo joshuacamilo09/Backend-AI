@@ -34,9 +34,9 @@
         }
 
         .auth-input:focus {
-            border-color: rgba(96, 165, 250, 0.7);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
-            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(124, 58, 237, 0.7);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.14);
+            background: rgba(14, 16, 32, 0.92);
         }
 
         .auth-submit {
@@ -44,19 +44,19 @@
             min-height: 52px;
             border: 0;
             border-radius: 14px;
-            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            background: #7c3aed;
             color: white;
             font-weight: 700;
             font-size: 0.96rem;
             letter-spacing: -0.01em;
             cursor: pointer;
             transition: transform .18s ease, box-shadow .18s ease;
-            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+            box-shadow: 0 14px 34px rgba(124, 58, 237, 0.35);
         }
 
         .auth-submit:hover {
             transform: translateY(-1px);
-            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.34);
+            box-shadow: 0 14px 34px rgba(124, 58, 237, 0.45);
         }
 
         .auth-errors ul {
