@@ -6,6 +6,7 @@
 **Curso:** Engenharia Informática  
 **Ano:** 2.º Ano  
 
+# Link para arquitetura de informação no figma: https://www.figma.com/board/ixFa6Spwfgp1NXRngxOM9a/Untitled?node-id=0-1&t=uK8q4cbLzj04pLAm-1
 ---
 
 # 1. Introdução
