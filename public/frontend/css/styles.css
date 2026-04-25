@@ -914,3 +914,53 @@ img { max-width: 100%; }
   .section-title { font-size: 1.6rem; }
   .hero-title { font-size: 2rem; }
 }
+
+
+
+/* PROFILE EDITS */
+
+.profile-page {
+    padding: 60px 20px;
+}
+
+.profile-header {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+}
+
+.profile-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+/* Container */
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Cards */
+.profile-card {
+    background: rgba(12, 20, 38, 0.88);
+    border: 1px solid rgba(96, 165, 250, 0.14);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 10px 40px rgba(2, 8, 23, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Conteúdo interno */
+.profile-card-content {
+    max-width: 600px;
+}
+
+/* Danger card */
+.profile-card.danger {
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
