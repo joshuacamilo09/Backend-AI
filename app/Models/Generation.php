@@ -12,9 +12,9 @@ class Generation extends Model
         'output_path',
     ];
 
-    /**
-     * A geração pertence a um projeto.
-     */
+    /*
+      A geração pertence a um projeto.
+    */
     public function project()
     {
         return $this->belongsTo(Project::class);

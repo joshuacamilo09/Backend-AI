@@ -2,10 +2,16 @@
 
 namespace App\Builders;
 
+/*
+    A IA devlve uma resposta "solta" com campos que podem vir incompletos, mal formatados ou inconsistentes.
+
+    Essa classe pega nessa resposta e converte para uma estrutura mais consistente e limpa, de movo a evitar erros durante a geração do backend.
+*/
+
 class SpecificationBuilder
 {
-    /**
-     * Normaliza a resposta da IA e garante estrutura mínima.
+    /*
+      Normaliza a resposta da IA e garante estrutura mínima. isto afecta a maneira como o json me devolve os dados.
      */
     public function build(array $raw): array
     {
@@ -22,6 +28,13 @@ class SpecificationBuilder
         ];
     }
 
+    /*
+      Converte pra minúsculas
+      Remove caracters especiais e espaços
+      Substitui tudo por -
+      Garante que nunca fique fazio devido ao:
+             " ?: 'generated-project' "
+    */
     private function normalizeProjectName(string $name): string
     {
         $name = strtolower(trim($name));
@@ -29,6 +42,17 @@ class SpecificationBuilder
         return trim($name, '-') ?: 'generated-project';
     }
 
+    /*
+        Para cada entidade:
+            - garante que tenham nome
+            - gera automaticamente o nome da tabela
+            - normaliza cada campo
+            - garante que cada campo tem:
+                - nome
+                - tipo
+                - required (true or false)
+                - unique (true or false)
+    */
     private function normalizeEntities(array $entities): array
     {
         return array_map(function (array $entity) {
@@ -47,6 +71,13 @@ class SpecificationBuilder
         }, $entities);
     }
 
+
+    /*
+        Garante que cada relação tem:
+            - tipo (padrão one-to-many)
+            - entidade origem e destino
+            - chave estrangeira
+    */
     private function normalizeRelations(array $relations): array
     {
         return array_map(function (array $relation) {
@@ -59,6 +90,10 @@ class SpecificationBuilder
         }, $relations);
     }
 
+
+    /*
+        Garante que se a IA não especificar nada, assume um CRUD completo para garantir que cada entidade tem pelo menos um conjunto básico de rotas CRUD.
+    */
     private function normalizeEndpoints(array $endpoints): array
     {
         return array_map(function (array $endpoint) {

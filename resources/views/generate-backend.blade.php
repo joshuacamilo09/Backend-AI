@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon" href="{{ asset('frontend/assets/icons/network.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('frontend/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}" />
     <title>Generate Backend - BackendAI</title>
 </head>
 
@@ -146,7 +146,7 @@
         </main>
     </div>
 
-    <script src="{{ asset('frontend/generate-backend.js') }}"></script>
+    <script src="{{ asset('frontend/js/generate-backend.js') }}"></script>
 </body>
 
 </html>

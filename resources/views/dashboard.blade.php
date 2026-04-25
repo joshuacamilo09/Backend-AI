@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{ asset('frontend/assets/icons/network.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('frontend/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}" />
     <title>BackendAI Dashboard</title>
 </head>
 <body>
@@ -154,6 +154,6 @@
         </main>
     </div>
 
-    <script src="{{ asset('frontend/dashboard.js') }}"></script>
+    <script src="{{ asset('frontend/js/dashboard.js') }}"></script>
 </body>
 </html>

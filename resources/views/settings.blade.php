@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{ asset('frontend/assets/icons/network.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('frontend/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -341,6 +341,6 @@
         </main>
     </div>
 
-    <script src="{{ asset('frontend/settings.js') }}"></script>
+    <script src="{{ asset('frontend/js/settings.js') }}"></script>
 </body>
 </html>
