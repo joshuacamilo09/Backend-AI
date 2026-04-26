@@ -16,26 +16,26 @@ O desenvolvimento do projeto foi dividido por áreas de especialização, garant
 
 ---
 
-## 👨‍💻 Joshua — Fullstack Developer
+## 👨‍💻 Joshua — Backend Developer
 
 Joshua desempenhou o papel de **Fullstack Developer**, sendo responsável pelo desenvolvimento da lógica central da aplicação e pela integração entre frontend e backend.
 
 ### 🔧 Principais responsabilidades
 
 - Implementação da arquitetura backend em Laravel  
-- Criação e gestão de rotas web e API  
+- gestão de rotas web e API  
 - Desenvolvimento dos controllers principais  
-- Integração com serviços de Inteligência Artificial  
+- Integração com serviços de Inteligência Artificial e outros serviços
 - Estruturação da base de dados (modelos e relações)  
-- Implementação do sistema de autenticação (login, registo, verificação)  
+- Implementação do sistema de autenticação (login, registo, verificação)
 - Garantia de segurança nas rotas (middleware `auth` e `verified`)  
-- Integração frontend ↔ backend (fetch API, tratamento de respostas)  
-- Debug e resolução de erros  
+- Debug e resolução de erros
+- Novas features parte do backend
 
 ### 🚀 Contributos relevantes
 
 - Criação do core funcional da plataforma  
-- Implementação da funcionalidade principal: geração automática de backends  
+- Implementação das funcionalidades principais e extras / nice to haves
 - Estruturação escalável do sistema  
 - Garantia de funcionamento completo da aplicação  
 
