@@ -750,3 +750,34 @@ tbody tr:hover {
     display: flex;
     justify-content: flex-end;
 }
+
+/* API_TESTER */
+
+.endpoint-method-get {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.endpoint-method-post {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.endpoint-method-put {
+    color: #facc15;
+    background: rgba(250, 204, 21, 0.12);
+}
+
+.endpoint-method-delete {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.endpoint-item:hover {
+    border-color: rgba(168, 85, 247, 0.55) !important;
+    transform: translateY(-1px);
+}
+
+.endpoint-item {
+    transition: 0.18s ease;
+}

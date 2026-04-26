@@ -23,6 +23,12 @@ class MigrationGenerator
                 continue;
             }
 
+            // O Laravel já traz uma migration própria para a tabela users.
+            // Se gerarmos outra migration para User, dá erro de tabela duplicada.
+            if ($entityName === 'User' || $tableName === 'users') {
+                continue;
+            }
+
             $timestamp = now()->addSeconds($index)->format('Y_m_d_His');
             $fileName = "{$timestamp}_create_{$tableName}_table.php";
             $filePath = $projectPath . "/database/migrations/{$fileName}";

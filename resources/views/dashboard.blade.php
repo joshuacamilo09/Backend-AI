@@ -45,6 +45,12 @@
                     <span>Templates</span>
                 </a>
 
+                <a href="{{ route('api-tester') }}"
+                class="menu-item {{ request()->routeIs('api-tester') ? 'active' : '' }}">
+                     <img src="{{ asset('frontend/assets/icons/plug.png') }}" alt="" class="icon" />
+                     <span>API Tester</span>
+                </a>
+
                 <a href="{{ route('settings') }}" class="menu-item {{ request()->routeIs('settings') ? 'active' : '' }}">
                     <img src="{{ asset('frontend/assets/icons/settings.png') }}" alt="" class="icon" />
                     <span>Settings</span>
