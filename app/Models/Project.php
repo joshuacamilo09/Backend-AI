@@ -39,4 +39,12 @@ class Project extends Model
     {
         return $this->hasMany(Generation::class);
     }
+
+    /**
+     * Um projeto gerado pode ter vários endpoints associados.
+     */
+    public function endpoints()
+    {
+        return $this->hasMany(ProjectEndpoint::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EndpointTesterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Páginas da plataforma
      */
+    Route::get('/api-tester', function () {
+        return view('api-tester');
+    })->name('api-tester');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -47,6 +52,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
      * Estes usam sessão web do Breeze e evitam o erro "Unauthenticated"
      */
     Route::prefix('app-api')->group(function () {
+
+        Route::get('/projects/{project}/endpoints', [EndpointTesterController::class, 'endpoints'])
+            ->name('app.projects.endpoints');
+
+        Route::post('/endpoint-tests/run', [EndpointTesterController::class, 'run'])
+            ->name('app.endpoint-tests.run');
+            
         Route::post('/generate-backend', [BackendGenerationController::class, 'store'])
             ->name('app.generate-backend');
 
@@ -67,4 +79,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -7,6 +7,7 @@ use App\Services\Generation\LaravelProjectGenerator;
 use App\Services\Generation\StoreGenerationService;
 use App\Services\Generation\ZipExporter;
 use Illuminate\Http\Request;
+use App\Services\Testing\EndpointExtractorService;
 
 class BackendGenerationController extends Controller
 {
@@ -19,6 +20,7 @@ class BackendGenerationController extends Controller
      * e devolve os metadados da geração.
      */
     public function store(
+        EndpointExtractorService $endpointExtractor,
         Request $request,
         AIInterpreter $interpreter,
         StoreGenerationService $storeService,
@@ -46,6 +48,10 @@ class BackendGenerationController extends Controller
 
             $project = $result['project'];
             $generation = $result['generation'];
+
+            // Guardar automaticamente os endpoints que o projeto gerado terá.
+            // Isto permite que o API Tester liste os endpoints depois da geração.
+            $endpointExtractor->extract($project, $spec);
 
             // 3) Gerar projeto Laravel real
             $projectPath = $projectGenerator->generate($spec, $generation);
@@ -76,7 +82,6 @@ class BackendGenerationController extends Controller
                 'project_path' => $projectPath,
                 'zip_path' => $zipPath,
             ], 201);
-
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Erro ao gerar backend.',
