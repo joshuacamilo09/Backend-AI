@@ -109,6 +109,13 @@
     <form method="POST" action="{{ route('register') }}" class="auth-form">
         @csrf
 
+        <input type="hidden" id="latitude" name="latitude">
+<input type="hidden" id="longitude" name="longitude">
+
+<p id="locationStatus" style="color:#94a3b8; font-size:13px; line-height:1.5;">
+    Location permission helps BackendAI generate geographic analytics.
+</p>
+
         <div class="auth-field">
             <label for="name" class="auth-label">Name</label>
             <input
@@ -179,4 +186,43 @@
             <a href="{{ route('login') }}">Log in</a>
         </div>
     </form>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const latitudeInput = document.getElementById("latitude");
+    const longitudeInput = document.getElementById("longitude");
+    const status = document.getElementById("locationStatus");
+
+    // Verifica se o browser suporta Geolocation API.
+    if (!navigator.geolocation) {
+        if (status) {
+            status.textContent = "Geolocation is not supported by this browser.";
+        }
+        return;
+    }
+
+    // Pede permissão ao utilizador para obter localização.
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            latitudeInput.value = position.coords.latitude;
+            longitudeInput.value = position.coords.longitude;
+
+            if (status) {
+                status.textContent = "Location captured successfully.";
+            }
+        },
+        () => {
+            if (status) {
+                status.textContent = "Location permission denied. You can still register.";
+            }
+        },
+        {
+            enableHighAccuracy: false,
+            timeout: 8000,
+            maximumAge: 60000,
+        }
+    );
+});
+</script>
+
 </x-guest-layout>
