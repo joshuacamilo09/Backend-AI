@@ -125,6 +125,19 @@ function renderAdmin(data) {
     renderListChart("citiesChart", data.geo?.cities || []);
     renderListChart("continentsChart", data.geo?.continents || []);
 
+    setText(
+        "avgDocumentationTimeValue",
+        `${Number(data.performance?.average_documentation_time_ms || 0).toFixed(0)}ms`,
+    );
+
+    setText(
+        "documentationGenerationRateValue",
+        percent(data.documentation?.generation_rate),
+    );
+
+    setText("newUsersValue", data.users?.new_users ?? "0");
+    setText("returningUsersValue", data.users?.returning_users ?? "0");
+
     const heatmap = document.getElementById("heatmapOutput");
 
     if (heatmap) {

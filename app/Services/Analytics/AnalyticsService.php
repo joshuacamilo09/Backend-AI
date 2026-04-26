@@ -86,6 +86,19 @@ class AnalyticsService
         $newUsers = \App\Models\User::where('login_count', '<=', 1)->count();
         $returningUsers = \App\Models\User::where('login_count', '>', 1)->count();
 
+        $averageDocumentationTime = round(
+            ProjectDocumentation::whereNotNull('duration_ms')->avg('duration_ms') ?? 0,
+            2
+        );
+
+        $newUsers = User::where('login_count', '<=', 1)->count();
+        $returningUsers = User::where('login_count', '>', 1)->count();
+
+        $documentationGenerationRate = $this->percentage(
+            $totalDocumentations,
+            max($totalProjects, 1)
+        );
+
         return [
             'users' => [
                 'new_users' => $newUsers,
@@ -156,6 +169,31 @@ class AnalyticsService
                 'total_api_tests' => $totalApiTests,
                 'api_test_rate' => $this->percentage($totalApiTests, max($totalEndpoints, 1)),
             ],
+
+            'users' => [
+                'new_users' => $newUsers,
+                'returning_users' => $returningUsers,
+            ],
+
+            'performance' => [
+                'average_generation_time_ms' => $averageGenerationTime,
+                'average_download_time_ms' => $averageDownloadTime,
+                'average_documentation_time_ms' => $averageDocumentationTime,
+                'average_project_size_bytes' => $averageProjectSize,
+            ],
+
+            'documentation' => [
+                'total_generated' => $totalDocumentations,
+                'generation_rate' => $documentationGenerationRate,
+                'downloads' => (int) $totalDocumentationDownloads,
+                'download_rate' => $this->percentage((int) $totalDocumentationDownloads, max($totalDocumentations, 1)),
+            ],
+
+            'geo' => [
+    'countries' => $this->usersByCountry(),
+    'cities' => $this->usersByCity(),
+    'continents' => $this->usersByContinent(),
+],
         ];
     }
 

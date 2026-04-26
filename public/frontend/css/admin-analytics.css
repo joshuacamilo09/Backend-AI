@@ -1,0 +1,250 @@
+.admin-analytics {
+    font-family: inherit;
+}
+
+.admin-analytics-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.admin-analytics .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.admin-analytics .stat-card,
+.admin-analytics .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+
+.admin-analytics .stat-card:hover,
+.admin-analytics .chart-card:hover {
+    border-color: rgba(124, 58, 237, 0.38);
+}
+
+.admin-analytics .stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.admin-analytics .stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-analytics .stat-delta {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.14);
+    color: var(--accent-2);
+}
+
+.admin-analytics .stat-delta.positive {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.10);
+}
+
+.admin-analytics .stat-delta.negative {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.10);
+}
+
+.admin-analytics .stat-value {
+    color: var(--text);
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 14px;
+}
+
+.admin-analytics .stat-bar {
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+}
+
+.admin-analytics .stat-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.admin-analytics .stat-fill.success {
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.admin-analytics .stat-fill.danger {
+    background: linear-gradient(90deg, #ef4444, #fb7185);
+}
+
+.admin-analytics .stat-fill.warning {
+    background: linear-gradient(90deg, #f97316, #fbbf24);
+}
+
+.admin-analytics .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.admin-analytics .chart-card.full {
+    grid-column: 1 / -1;
+}
+
+.admin-analytics .chart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.admin-analytics .chart-card-title {
+    color: var(--text);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.admin-analytics .chart-card-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.admin-analytics .chart-wrap {
+    height: 240px;
+    position: relative;
+}
+
+.admin-analytics .chart-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.admin-analytics .heatmap-scale {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.admin-analytics .heatmap-gradient {
+    width: 84px;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(124,58,237,0.12), #a855f7);
+}
+
+.admin-analytics .heatmap-wrap {
+    overflow-x: auto;
+    padding-top: 10px;
+}
+
+.admin-analytics .heatmap-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-analytics .heatmap-row-label {
+    width: 36px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+    padding-right: 6px;
+}
+
+.admin-analytics .heatmap-hour-labels {
+    display: flex;
+    gap: 5px;
+    padding-left: 42px;
+    margin-bottom: 5px;
+}
+
+.admin-analytics .heatmap-hour-label {
+    width: 22px;
+    color: var(--muted);
+    font-size: 10px;
+    text-align: center;
+}
+
+.admin-analytics .heatmap-cell {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: rgba(124,58,237,0.10);
+}
+
+.admin-analytics .geo-list,
+.admin-analytics .template-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.admin-analytics .rank-row {
+    display: grid;
+    grid-template-columns: 42px 150px 1fr 48px;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+}
+
+.admin-analytics .rank-number {
+    color: #a855f7;
+    font-weight: 800;
+}
+
+.admin-analytics .rank-label {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-analytics .rank-bar {
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.admin-analytics .rank-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.admin-analytics .empty-state {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+    .admin-analytics .stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-analytics .stats-grid,
+    .admin-analytics .charts-row {
+        grid-template-columns: 1fr;
+    }
+}

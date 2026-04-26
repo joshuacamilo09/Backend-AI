@@ -50,6 +50,12 @@
                      <span>API Tester</span>
                 </a>
 
+                <a href="{{ route('documentation') }}"
+         class="menu-item {{ request()->routeIs('documentation') ? 'active' : '' }}">
+             <img src="{{ asset('frontend/assets/icons/docs.png') }}" alt="" class="icon" />
+             <span>Documentation</span>
+        </a>
+
                    @if (auth()->user()?->role === 'admin')
     <a href="{{ route('analytics') }}"
         class="menu-item {{ request()->routeIs('analytics') ? 'active' : '' }}">

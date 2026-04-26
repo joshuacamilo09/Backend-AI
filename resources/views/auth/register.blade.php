@@ -175,6 +175,64 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="auth-errors" />
         </div>
 
+        <div class="auth-field">
+    <label for="country" class="auth-label">Country</label>
+    <input id="country" class="auth-input" type="text" name="country" value="{{ old('country') }}" placeholder="Portugal">
+</div>
+
+<div class="auth-field">
+    <label for="city" class="auth-label">City</label>
+    <input id="city" class="auth-input" type="text" name="city" value="{{ old('city') }}" placeholder="Lisbon">
+</div>
+
+<div class="auth-field">
+    <label for="continent" class="auth-label">Continent</label>
+    <select id="continent" name="continent" class="auth-input">
+        <option value="">Select continent</option>
+        <option value="Europe">Europe</option>
+        <option value="Africa">Africa</option>
+        <option value="Asia">Asia</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+        <option value="Oceania">Oceania</option>
+    </select>
+</div>
+
+<div class="auth-field">
+    <label for="user_type" class="auth-label">User Type</label>
+    <select id="user_type" name="user_type" class="auth-input">
+        <option value="">Select user type</option>
+        <option value="student">Student</option>
+        <option value="junior_developer">Junior Developer</option>
+        <option value="freelancer">Freelancer</option>
+        <option value="teacher">Teacher</option>
+        <option value="company">Company</option>
+    </select>
+</div>
+
+<div class="auth-field">
+    <label for="experience_level" class="auth-label">Experience Level</label>
+    <select id="experience_level" name="experience_level" class="auth-input">
+        <option value="">Select level</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+    </select>
+</div>
+
+<div class="auth-field">
+    <label for="main_interest" class="auth-label">Main Interest</label>
+    <select id="main_interest" name="main_interest" class="auth-input">
+        <option value="">Select interest</option>
+        <option value="backend">Backend</option>
+        <option value="frontend">Frontend</option>
+        <option value="fullstack">Fullstack</option>
+        <option value="ai">AI</option>
+        <option value="databases">Databases</option>
+        <option value="devops">DevOps</option>
+    </select>
+</div>
+
         <button type="submit" class="auth-submit">
             Create account
         </button>

@@ -37,18 +37,16 @@ class ProjectDocumentationController extends Controller
         Project $project,
         ProjectDocumentationGenerator $generator
     ) {
+        // Início da medição do tempo de geração da documentação.
         $startedAt = microtime(true);
 
-        // Gerar conteúdo Markdown com base nos dados atuais do projeto.
+        // Gera o conteúdo Markdown da documentação.
         $content = $generator->generate($project);
 
-        /**
-         * updateOrCreate evita duplicar documentação.
-         * Se já existir, atualiza.
-         * Se não existir, cria.
-         */
+        // Calcula o tempo total em milissegundos.
         $durationMs = round((microtime(true) - $startedAt) * 1000);
 
+        // Atualiza a documentação existente ou cria uma nova.
         $documentation = $project->documentation()->updateOrCreate(
             ['project_id' => $project->id],
             [

@@ -38,17 +38,20 @@ body {
 .dashboard {
   display: flex;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-  width: 260px;
-  background: var(--surface);
-  padding: 24px 18px;
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
+    width: 260px;
+    background: var(--surface);
+    padding: 24px 18px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .logo {

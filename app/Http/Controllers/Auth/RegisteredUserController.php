@@ -35,9 +35,17 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
 
-            // Coordenadas opcionais vindas da Geolocation API.
+            // Localização captada pelo browser.
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+
+            // Dados adicionais para analytics/SIG.
+            'country' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'continent' => ['nullable', 'string', 'max:255'],
+            'user_type' => ['nullable', 'string', 'max:255'],
+            'experience_level' => ['nullable', 'string', 'max:255'],
+            'main_interest' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
@@ -45,14 +53,26 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
 
-            // Por defeito todos são users normais.
+            // Por defeito, todo novo utilizador é normal.
             'role' => 'user',
 
-            // Localização opcional.
+            // Coordenadas.
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-        ]);
 
+            // Dados SIG/analytics.
+            'country' => $request->country,
+            'city' => $request->city,
+            'continent' => $request->continent,
+            'user_type' => $request->user_type,
+            'experience_level' => $request->experience_level,
+            'main_interest' => $request->main_interest,
+
+            // Primeiro login acontece logo após o registo.
+            'last_login_at' => now(),
+            'last_activity_at' => now(),
+            'login_count' => 1,
+        ]);
         event(new Registered($user));
 
         Auth::login($user);

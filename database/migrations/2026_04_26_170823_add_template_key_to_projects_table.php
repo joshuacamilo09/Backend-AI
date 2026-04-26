@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('project_documentations', function (Blueprint $table) {
-            //
-        });
+        Schema::table('projects', function (Blueprint $table) {
+    if (!Schema::hasColumn('projects', 'template_key')) {
+        $table->string('template_key')->nullable()->after('framework');
+    }
+});
     }
 
     /**
@@ -21,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('project_documentations', function (Blueprint $table) {
+        Schema::table('projects', function (Blueprint $table) {
             //
         });
     }
