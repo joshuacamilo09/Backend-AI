@@ -37,6 +37,8 @@ class ProjectDocumentationController extends Controller
         Project $project,
         ProjectDocumentationGenerator $generator
     ) {
+        $startedAt = microtime(true);
+
         // Gerar conteúdo Markdown com base nos dados atuais do projeto.
         $content = $generator->generate($project);
 
@@ -45,11 +47,14 @@ class ProjectDocumentationController extends Controller
          * Se já existir, atualiza.
          * Se não existir, cria.
          */
+        $durationMs = round((microtime(true) - $startedAt) * 1000);
+
         $documentation = $project->documentation()->updateOrCreate(
             ['project_id' => $project->id],
             [
                 'content' => $content,
                 'format' => 'markdown',
+                'duration_ms' => $durationMs,
             ]
         );
 
@@ -63,38 +68,40 @@ class ProjectDocumentationController extends Controller
      * Faz download da documentação como PDF.
      */
     /**
- * Faz download da documentação como PDF bonito,
- * convertendo Markdown para HTML antes de gerar o PDF.
- */
-public function downloadPdf(Project $project)
-{
-    $documentation = $project->documentation;
+     * Faz download da documentação como PDF bonito,
+     * convertendo Markdown para HTML antes de gerar o PDF.
+     */
+    public function downloadPdf(Project $project)
+    {
+        $documentation = $project->documentation;
 
-    if (!$documentation) {
-        return response()->json([
-            'message' => 'Documentation has not been generated yet.',
-        ], 404);
+        if (!$documentation) {
+            return response()->json([
+                'message' => 'Documentation has not been generated yet.',
+            ], 404);
+        }
+
+        // Converter Markdown para HTML
+        $converter = new CommonMarkConverter([
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+
+        $htmlContent = $converter->convert($documentation->content)->getContent();
+
+        $fileName = str($project->name)
+            ->kebab()
+            ->append('-documentation.pdf')
+            ->toString();
+
+        $pdf = Pdf::loadView('pdf.project-documentation', [
+            'project' => $project,
+            'documentation' => $documentation,
+            'htmlContent' => $htmlContent,
+        ])->setPaper('a4');
+
+        $documentation->increment('download_count');
+
+        return $pdf->download($fileName);
     }
-
-    // Converter Markdown para HTML
-    $converter = new CommonMarkConverter([
-        'html_input' => 'strip',
-        'allow_unsafe_links' => false,
-    ]);
-
-    $htmlContent = $converter->convert($documentation->content)->getContent();
-
-    $fileName = str($project->name)
-        ->kebab()
-        ->append('-documentation.pdf')
-        ->toString();
-
-    $pdf = Pdf::loadView('pdf.project-documentation', [
-        'project' => $project,
-        'documentation' => $documentation,
-        'htmlContent' => $htmlContent,
-    ])->setPaper('a4');
-
-    return $pdf->download($fileName);
-}
 }

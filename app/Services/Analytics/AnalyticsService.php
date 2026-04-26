@@ -71,7 +71,27 @@ class AnalyticsService
         $completedGenerations = Generation::where('status', 'completed')->count();
         $failedGenerations = Generation::where('status', 'failed')->count();
 
+        $totalDownloads = Generation::sum('download_count');
+        $totalDocumentationDownloads = ProjectDocumentation::sum('download_count');
+
+        $averageGenerationTime = round(Generation::whereNotNull('duration_ms')->avg('duration_ms') ?? 0, 2);
+        $averageDownloadTime = round(Generation::whereNotNull('avg_download_ms')->avg('avg_download_ms') ?? 0, 2);
+        $averageProjectSize = round(Generation::whereNotNull('zip_size_bytes')->avg('zip_size_bytes') ?? 0, 2);
+
+        $totalApiTests = 0;
+        if (SchemaHelper::hasColumn('api_test_runs', 'id')) {
+            $totalApiTests = DB::table('api_test_runs')->count();
+        }
+
+        $newUsers = \App\Models\User::where('login_count', '<=', 1)->count();
+        $returningUsers = \App\Models\User::where('login_count', '>', 1)->count();
+
         return [
+            'users' => [
+                'new_users' => $newUsers,
+                'returning_users' => $returningUsers,
+            ],
+
             'totals' => [
                 'users' => $totalUsers,
                 'projects' => $totalProjects,
@@ -114,6 +134,28 @@ class AnalyticsService
                 'inactive_users_14_days' => $this->inactiveUsersAfterTwoWeeks(),
                 'abandonment_rate' => $this->abandonmentRate(),
             ],
+
+            'downloads' => [
+                'total_zip_downloads' => (int) $totalDownloads,
+                'download_rate' => $this->percentage((int) $totalDownloads, max($totalGenerations, 1)),
+                'documentation_downloads' => (int) $totalDocumentationDownloads,
+                'documentation_download_rate' => $this->percentage((int) $totalDocumentationDownloads, max($totalDocumentations, 1)),
+            ],
+
+            'performance' => [
+                'average_generation_time_ms' => $averageGenerationTime,
+                'average_download_time_ms' => $averageDownloadTime,
+                'average_project_size_bytes' => $averageProjectSize,
+                'average_documentation_time_ms' => round(
+                    \App\Models\ProjectDocumentation::whereNotNull('duration_ms')->avg('duration_ms') ?? 0,
+                    2
+                ),
+            ],
+
+            'testing' => [
+                'total_api_tests' => $totalApiTests,
+                'api_test_rate' => $this->percentage($totalApiTests, max($totalEndpoints, 1)),
+            ],
         ];
     }
 
@@ -140,7 +182,7 @@ class AnalyticsService
             ->orderByDesc('total')
             ->limit(10)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'label' => $item->framework ?? 'unknown',
                 'total' => (int) $item->total,
             ])
@@ -166,7 +208,7 @@ class AnalyticsService
             ->orderByDesc('total')
             ->limit(10)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'label' => $item->template_key,
                 'total' => (int) $item->total,
             ])
@@ -205,7 +247,7 @@ class AnalyticsService
             ->orderBy('date')
             ->limit(30)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'date' => (string) $item->date,
                 'total' => (int) $item->total,
             ])
@@ -223,7 +265,7 @@ class AnalyticsService
             ->orderBy('date')
             ->limit(30)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'date' => (string) $item->date,
                 'total' => (int) $item->total,
             ])
@@ -242,7 +284,7 @@ class AnalyticsService
             ->orderByDesc('total')
             ->limit(10)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'label' => $item->country,
                 'total' => (int) $item->total,
             ])
@@ -261,7 +303,7 @@ class AnalyticsService
             ->orderByDesc('total')
             ->limit(10)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'label' => $item->city,
                 'total' => (int) $item->total,
             ])
@@ -279,7 +321,7 @@ class AnalyticsService
             ->groupBy('continent')
             ->orderByDesc('total')
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'label' => $item->continent,
                 'total' => (int) $item->total,
             ])
@@ -295,7 +337,7 @@ class AnalyticsService
             ->whereNotNull('latitude')
             ->whereNotNull('longitude')
             ->get(['latitude', 'longitude', 'city', 'country'])
-            ->map(fn ($user) => [
+            ->map(fn($user) => [
                 'lat' => (float) $user->latitude,
                 'lng' => (float) $user->longitude,
                 'city' => $user->city,

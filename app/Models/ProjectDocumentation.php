@@ -13,7 +13,15 @@ class ProjectDocumentation extends Model
         'project_id',
         'content',
         'format',
+        'download_count',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'download_count' => 'integer',
+        ];
+    }
 
     /**
      * Uma documentação pertence a um projeto.

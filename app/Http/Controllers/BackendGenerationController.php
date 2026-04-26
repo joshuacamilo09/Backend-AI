@@ -40,6 +40,8 @@ class BackendGenerationController extends Controller
         $description = $validated['description'];
 
         try {
+            $startedAt = microtime(true);
+
             // 1) Interpretar descrição com IA
             $spec = $interpreter->parse($description);
 
@@ -59,10 +61,15 @@ class BackendGenerationController extends Controller
             // 4) Criar ZIP
             $zipPath = $zipExporter->export($projectPath);
 
+            $durationMs = round((microtime(true) - $startedAt) * 1000);
+            $zipSizeBytes = file_exists($zipPath) ? filesize($zipPath) : null;
+
             // 5) Atualizar geração como concluída
             $generation->update([
                 'status' => 'completed',
                 'output_path' => $zipPath,
+                'duration_ms' => $durationMs,
+                'zip_size_bytes' => $zipSizeBytes,
             ]);
 
             $generation = $generation->fresh();

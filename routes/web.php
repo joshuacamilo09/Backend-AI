@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
      */
     Route::get('/analytics', function () {
     return view('analytics');
-    })->name('analytics');
+    })->middleware('admin')->name('analytics');
 
     Route::get('/documentation', function () {
         return view('documentation');
@@ -62,9 +62,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
      * Estes usam sessão web do Breeze e evitam o erro "Unauthenticated"
      */
     Route::prefix('app-api')->group(function () {
-
-    Route::get('/analytics/summary', [AnalyticsController::class, 'summary'])
-    ->name('app.analytics.summary');
 
 Route::get('/admin/analytics', [AnalyticsController::class, 'admin'])
     ->middleware('admin')

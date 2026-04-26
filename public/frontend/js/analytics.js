@@ -140,27 +140,18 @@ async function initAnalytics() {
     renderUser();
 
     try {
-        const summary = await fetchJson("/app-api/analytics/summary");
-
-        renderSummary(summary);
-
-        const modeBadge = document.getElementById("analyticsModeBadge");
-        if (modeBadge) modeBadge.textContent = "User summary";
-    } catch (error) {
-        console.error(error);
-        const modeBadge = document.getElementById("analyticsModeBadge");
-        if (modeBadge) modeBadge.textContent = "Error";
-    }
-
-    try {
         const admin = await fetchJson("/app-api/admin/analytics");
 
+        renderSummary(admin);
         renderAdmin(admin);
 
         const modeBadge = document.getElementById("analyticsModeBadge");
         if (modeBadge) modeBadge.textContent = "Admin mode";
-    } catch {
-        // Normal: user comum não tem acesso ao painel admin.
+    } catch (error) {
+        console.error(error);
+
+        const modeBadge = document.getElementById("analyticsModeBadge");
+        if (modeBadge) modeBadge.textContent = "Access denied";
     }
 }
 

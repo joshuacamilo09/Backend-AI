@@ -51,11 +51,13 @@
                      <span>API Tester</span>
                 </a>
 
-                <a href="{{ route('analytics') }}"
-                class="menu-item {{ request()->routeIs('analytics') ? 'active' : '' }}">
-                    <img src="{{ asset('frontend/assets/icons/chart.png') }}" alt="" class="icon" />
-                    <span>Analytics</span>
-                </a>
+                @if (auth()->user()?->role === 'admin')
+    <a href="{{ route('analytics') }}"
+        class="menu-item {{ request()->routeIs('analytics') ? 'active' : '' }}">
+        <img src="{{ asset('frontend/assets/icons/chart.png') }}" alt="" class="icon" />
+        <span>Analytics</span>
+    </a>
+@endif
 
                 <a href="{{ route('settings') }}" class="menu-item {{ request()->routeIs('settings') ? 'active' : '' }}">
                     <img src="{{ asset('frontend/assets/icons/settings.png') }}" alt="" class="icon" />

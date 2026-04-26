@@ -27,6 +27,20 @@ class DownloadGeneratedBackendController extends Controller
             abort(404, 'ZIP não encontrado para esta geração.');
         }
 
+        $startDownload = microtime(true);
+
+        $generation->increment('download_count');
+
+        if (file_exists($generation->output_path)) {
+            $downloadMs = round((microtime(true) - $startDownload) * 1000);
+
+            $generation->update([
+                'avg_download_ms' => $generation->avg_download_ms
+                    ? round(($generation->avg_download_ms + $downloadMs) / 2)
+                    : $downloadMs,
+            ]);
+        }
+
         return response()->download($zipPath);
     }
 }
