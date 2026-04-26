@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
+/*
+    php artisan db:seed --class=FinalDemoDataSeeder
+*/
 class FinalDemoDataSeeder extends Seeder
 {
     public function run(): void
