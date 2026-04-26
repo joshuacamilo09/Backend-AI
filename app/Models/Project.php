@@ -47,4 +47,12 @@ class Project extends Model
     {
         return $this->hasMany(ProjectEndpoint::class);
     }
+
+    /**
+     * Um projeto pode ter uma documentação gerada.
+     */
+    public function documentation()
+    {
+        return $this->hasOne(ProjectDocumentation::class);
+    }
 }

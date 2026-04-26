@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EndpointTesterController;
+use App\Http\Controllers\ProjectDocumentationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +17,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Páginas da plataforma
      */
+    Route::get('/documentation', function () {
+        return view('documentation');
+    })->name('documentation');
+
     Route::get('/api-tester', function () {
         return view('api-tester');
     })->name('api-tester');
@@ -53,12 +58,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
      */
     Route::prefix('app-api')->group(function () {
 
+        Route::get('/projects/{project}/documentation', [ProjectDocumentationController::class, 'show'])
+            ->name('app.projects.documentation.show');
+
+        Route::post('/projects/{project}/documentation/generate', [ProjectDocumentationController::class, 'generate'])
+            ->name('app.projects.documentation.generate');
+
+        Route::get('/projects/{project}/documentation/download-pdf', [ProjectDocumentationController::class, 'downloadPdf'])
+            ->name('app.projects.documentation.download-pdf');
+
         Route::get('/projects/{project}/endpoints', [EndpointTesterController::class, 'endpoints'])
             ->name('app.projects.endpoints');
 
         Route::post('/endpoint-tests/run', [EndpointTesterController::class, 'run'])
             ->name('app.endpoint-tests.run');
-            
+
         Route::post('/generate-backend', [BackendGenerationController::class, 'store'])
             ->name('app.generate-backend');
 
