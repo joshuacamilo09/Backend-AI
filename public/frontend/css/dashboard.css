@@ -751,6 +751,8 @@ tbody tr:hover {
     justify-content: flex-end;
 }
 
+
+
 /* API_TESTER */
 
 .endpoint-method-get {
@@ -840,4 +842,80 @@ tbody tr:hover {
 .markdown-preview pre code {
     background: transparent;
     padding: 0;
+}
+
+/* ANALYTICS */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.simple-chart,
+.simple-list-chart {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.bar-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 40px;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.bar-track {
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.donut-wrap {
+    display: grid;
+    place-items: center;
+    gap: 12px;
+    min-height: 180px;
+}
+
+.donut {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 800;
+    color: #e8eaf0;
+    background:
+        radial-gradient(circle at center, #0e1020 58%, transparent 60%),
+        conic-gradient(#7c3aed 0deg, #a855f7 120deg, rgba(255,255,255,0.08) 120deg);
+}
+
+.analytics-muted {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.analytics-pre {
+    margin-top: 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    color: var(--text);
+    overflow: auto;
+    min-height: 180px;
+    font-size: 12px;
 }

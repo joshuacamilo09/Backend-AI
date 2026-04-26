@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EndpointTesterController;
 use App\Http\Controllers\ProjectDocumentationController;
+use App\Http\Controllers\AnalyticsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Páginas da plataforma
      */
+    Route::get('/analytics', function () {
+    return view('analytics');
+    })->name('analytics');
+
     Route::get('/documentation', function () {
         return view('documentation');
     })->name('documentation');
@@ -57,6 +62,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
      * Estes usam sessão web do Breeze e evitam o erro "Unauthenticated"
      */
     Route::prefix('app-api')->group(function () {
+
+    Route::get('/analytics/summary', [AnalyticsController::class, 'summary'])
+    ->name('app.analytics.summary');
+
+Route::get('/admin/analytics', [AnalyticsController::class, 'admin'])
+    ->middleware('admin')
+    ->name('app.admin.analytics');
 
         Route::get('/projects/{project}/documentation', [ProjectDocumentationController::class, 'show'])
             ->name('app.projects.documentation.show');

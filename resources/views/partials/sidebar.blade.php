@@ -37,6 +37,12 @@
              <span>Documentation</span>
         </a>
 
+        <a href="{{ route('analytics') }}"
+    class="menu-item {{ request()->routeIs('analytics') ? 'active' : '' }}">
+    <img src="{{ asset('frontend/assets/icons/chart.png') }}" alt="" class="icon" />
+    <span>Analytics</span>
+</a>
+
         <a href="{{ route('settings') }}" class="menu-item {{ request()->routeIs('settings') ? 'active' : '' }}">
             <img src="{{ asset('frontend/assets/icons/settings.png') }}" alt="" class="icon" />
             <span>Settings</span>
