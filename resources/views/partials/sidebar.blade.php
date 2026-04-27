@@ -50,21 +50,4 @@
             <span>Settings</span>
         </a>
     </nav>
-
-    <div class="user-card">
-        <div class="avatar" id="userAvatar"></div>
-        <div class="user-meta">
-            <div class="name" id="userName"></div>
-            <div class="role" id="userRole"></div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" style="background:none;border:none;color:inherit;cursor:pointer;font:inherit;">
-                Logout
-            </button>
-        </form>
-    </div>
 </aside>

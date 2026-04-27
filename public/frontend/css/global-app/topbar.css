@@ -1,0 +1,73 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Topbar
+|--------------------------------------------------------------------------
+| Controla a barra superior das páginas autenticadas.
+|
+| Afecta:
+| - search bar;
+| - botão principal no topo;
+| - alinhamento da barra superior.
+|--------------------------------------------------------------------------
+*/
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+/*
+  Caixa de pesquisa usada no topo.
+*/
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+
+    padding: 10px 14px;
+    border-radius: 12px;
+
+    width: min(480px, 100%);
+    transition: border-color 0.2s;
+}
+
+.search:focus-within {
+    border-color: rgba(124, 58, 237, 0.4);
+}
+
+.search-icon {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.search-icon img {
+    width: 16px;
+    height: 16px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    background: transparent;
+
+    color: var(--text);
+    width: 100%;
+    font-size: 14px;
+}
+
+.search input::placeholder {
+    color: var(--muted);
+}
+
+@media (max-width: 540px) {
+    .topbar {
+        flex-wrap: wrap;
+    }
+}

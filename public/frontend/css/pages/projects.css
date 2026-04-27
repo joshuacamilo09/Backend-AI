@@ -1,0 +1,256 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Projects Page
+|--------------------------------------------------------------------------
+| Página responsável por:
+| - Listagem de projetos
+| - Tabelas dinâmicas
+| - Estados (completed, running, failed)
+| - Interação com dados do backend
+|--------------------------------------------------------------------------
+*/
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+/*
+  Wrapper da página de projetos
+*/
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* =========================================================
+   HEADER (título + ações)
+   ========================================================= */
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*
+  Título da página
+*/
+.projects-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+/*
+  Container com scroll horizontal
+
+  👉 evita quebrar layout em telas pequenas
+*/
+.projects-table-wrap {
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   TABLE BASE
+   ========================================================= */
+
+.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+}
+
+/*
+  Header da tabela
+*/
+.projects-table thead {
+    background: transparent;
+}
+
+/*
+  Células (header + body)
+*/
+.projects-table th,
+.projects-table td {
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+}
+
+/*
+  Header style
+*/
+.projects-table th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+
+/*
+  Linhas da tabela
+*/
+.projects-table tbody tr {
+    border-top: 1px solid var(--border);
+    transition: background 0.15s ease;
+}
+
+/*
+  Hover → UX importante
+*/
+.projects-table tbody tr:hover {
+    background: rgba(124, 58, 237, 0.06);
+}
+
+
+/* =========================================================
+   PROJECT NAME
+   ========================================================= */
+
+/*
+  Nome do projeto (destacado)
+*/
+.project-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+
+/*
+  Sub-info (framework, etc)
+*/
+.project-meta {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+/*
+  Base de status
+
+  👉 usado para mostrar estado da geração
+*/
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 10px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/*
+  COMPLETED → verde
+*/
+.status.completed {
+    background: rgba(34, 197, 94, 0.14);
+    color: var(--success);
+}
+
+/*
+  RUNNING → roxo
+*/
+.status.running {
+    background: rgba(124, 58, 237, 0.16);
+    color: #a78bfa;
+}
+
+/*
+  FAILED → vermelho
+*/
+.status.failed {
+    background: rgba(239, 68, 68, 0.14);
+    color: #ef4444;
+}
+
+/*
+  PENDING → laranja
+*/
+.status.pending {
+    background: rgba(249, 115, 22, 0.14);
+    color: var(--warning);
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+/*
+  Botões dentro da tabela (view, delete, etc)
+*/
+.project-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/*
+  Botão pequeno
+*/
+.action-btn {
+    padding: 6px 10px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+/*
+  Quando não há projetos
+*/
+.projects-empty {
+    text-align: center;
+    padding: 40px 0;
+
+    color: var(--muted);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .projects-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

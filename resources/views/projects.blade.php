@@ -4,7 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{ asset('frontend/assets/icons/network.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/variables.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/layout-base.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/topbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/components.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/pages/projects.css') }}">
+
+
     <title>Projects - BackendAI</title>
 </head>
 <body>
@@ -70,22 +80,6 @@
                 </a>
             </nav>
 
-            <div class="user-card">
-                <div class="avatar" id="userAvatar"></div>
-                <div class="user-meta">
-                    <div class="name" id="userName"></div>
-                    <div class="role" id="userRole"></div>
-                </div>
-            </div>
-
-            <div class="footer">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" style="background:none;border:none;color:inherit;cursor:pointer;font:inherit;">
-                        Logout
-                    </button>
-                </form>
-            </div>
         </aside>
 
         <main class="content">

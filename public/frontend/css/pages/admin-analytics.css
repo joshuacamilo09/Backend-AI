@@ -1,32 +1,91 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Admin Analytics
+|--------------------------------------------------------------------------
+| Este ficheiro controla APENAS a página de analytics.
+|
+| ⚠️ Está tudo scoped com ".admin-analytics"
+| → evita conflitos com dashboard, templates, etc
+|
+| Vantagem:
+| - isolamento de estilos
+| - manutenção mais fácil
+| - evita bugs globais
+|--------------------------------------------------------------------------
+*/
+
+
+/* =========================================================
+   WRAPPER GLOBAL
+   ========================================================= */
+
+/*
+  Container principal da página
+
+  👉 "inherit" garante que usamos a font definida no layout-base.css
+*/
 .admin-analytics {
     font-family: inherit;
 }
 
+/*
+  Estrutura vertical da página
+
+  gap controla espaçamento entre blocos (stats, charts, etc)
+*/
 .admin-analytics-shell {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
+
+/* =========================================================
+   STATS GRID (KPIs)
+   ========================================================= */
+
+/*
+  Grid dos cartões principais (KPIs)
+
+  repeat(4) → 4 colunas fixas
+*/
 .admin-analytics .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
 }
 
+
+/*
+  Cards base (stats + charts)
+
+  ⚠️ reutilizamos o mesmo estilo para manter consistência visual
+*/
 .admin-analytics .stat-card,
 .admin-analytics .chart-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 18px;
+
+    /* sombra leve para depth visual */
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+
+    transition: border-color 0.2s ease;
 }
 
+/*
+  Hover → feedback visual para interatividade
+*/
 .admin-analytics .stat-card:hover,
 .admin-analytics .chart-card:hover {
     border-color: rgba(124, 58, 237, 0.38);
 }
+
+
+/* =========================================================
+   STAT HEADER (título + badge)
+   ========================================================= */
 
 .admin-analytics .stat-header {
     display: flex;
@@ -41,15 +100,22 @@
     font-weight: 600;
 }
 
+/*
+  Badge (delta / status)
+
+  👉 usado para indicar variação ou tipo (Global, Success, etc)
+*/
 .admin-analytics .stat-delta {
     font-size: 11px;
     font-weight: 700;
     padding: 4px 8px;
     border-radius: 999px;
+
     background: rgba(124, 58, 237, 0.14);
     color: var(--accent-2);
 }
 
+/* estados */
 .admin-analytics .stat-delta.positive {
     color: #22c55e;
     background: rgba(34, 197, 94, 0.10);
@@ -60,15 +126,34 @@
     background: rgba(239, 68, 68, 0.10);
 }
 
+
+/* =========================================================
+   VALORES (números grandes)
+   ========================================================= */
+
+/*
+  Valor principal do KPI
+
+  letter-spacing negativo → efeito mais moderno (UI premium)
+*/
 .admin-analytics .stat-value {
     color: var(--text);
     font-size: 30px;
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1;
+
     margin-bottom: 14px;
 }
 
+
+/* =========================================================
+   BARRA DE PROGRESSO
+   ========================================================= */
+
+/*
+  Track (fundo da barra)
+*/
 .admin-analytics .stat-bar {
     height: 4px;
     border-radius: 999px;
@@ -76,12 +161,17 @@
     overflow: hidden;
 }
 
+/*
+  Fill (valor real)
+*/
 .admin-analytics .stat-fill {
     height: 100%;
     border-radius: 999px;
+
     background: linear-gradient(90deg, #7c3aed, #a855f7);
 }
 
+/* variações */
 .admin-analytics .stat-fill.success {
     background: linear-gradient(90deg, #22c55e, #4ade80);
 }
@@ -94,20 +184,36 @@
     background: linear-gradient(90deg, #f97316, #fbbf24);
 }
 
+
+/* =========================================================
+   CHART LAYOUT
+   ========================================================= */
+
+/*
+  Layout de charts (2 colunas)
+*/
 .admin-analytics .charts-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
 }
 
+/*
+  Chart full width
+*/
 .admin-analytics .chart-card.full {
     grid-column: 1 / -1;
 }
 
+
+/*
+  Header do chart
+*/
 .admin-analytics .chart-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     margin-bottom: 14px;
 }
 
@@ -124,6 +230,13 @@
     margin-top: 3px;
 }
 
+
+/*
+  Wrapper do gráfico (Chart.js)
+
+  ⚠️ IMPORTANTE:
+  altura fixa → evita charts quebrados
+*/
 .admin-analytics .chart-wrap {
     height: 240px;
     position: relative;
@@ -134,21 +247,38 @@
     height: 100% !important;
 }
 
+
+/* =========================================================
+   HEATMAP
+   ========================================================= */
+
 .admin-analytics .heatmap-scale {
     display: flex;
     align-items: center;
     gap: 8px;
+
     color: var(--muted);
     font-size: 12px;
 }
 
+/*
+  Gradiente de intensidade
+*/
 .admin-analytics .heatmap-gradient {
     width: 84px;
     height: 10px;
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(124,58,237,0.12), #a855f7);
+
+    background: linear-gradient(
+        90deg,
+        rgba(124,58,237,0.12),
+        #a855f7
+    );
 }
 
+/*
+  Scroll horizontal
+*/
 .admin-analytics .heatmap-wrap {
     overflow-x: auto;
     padding-top: 10px;
@@ -177,32 +307,49 @@
 
 .admin-analytics .heatmap-hour-label {
     width: 22px;
-    color: var(--muted);
     font-size: 10px;
     text-align: center;
+    color: var(--muted);
 }
 
+/*
+  Células da heatmap
+
+  👉 cor real é aplicada via JS dinamicamente
+*/
 .admin-analytics .heatmap-cell {
     width: 22px;
     height: 22px;
     border-radius: 6px;
+
     background: rgba(124,58,237,0.10);
 }
+
+
+/* =========================================================
+   LISTAS (countries, cities, templates)
+   ========================================================= */
 
 .admin-analytics .geo-list,
 .admin-analytics .template-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     max-height: 280px;
     overflow-y: auto;
 }
 
+
+/*
+  Linha de ranking
+*/
 .admin-analytics .rank-row {
     display: grid;
     grid-template-columns: 42px 150px 1fr 48px;
     align-items: center;
     gap: 12px;
+
     color: var(--text);
 }
 
@@ -212,7 +359,6 @@
 }
 
 .admin-analytics .rank-label {
-    color: var(--text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -231,17 +377,32 @@
     background: linear-gradient(90deg, #7c3aed, #a855f7);
 }
 
+
+/*
+  Quando não há dados
+*/
 .admin-analytics .empty-state {
     color: var(--muted);
     font-size: 14px;
 }
 
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/*
+  Tablet
+*/
 @media (max-width: 1200px) {
     .admin-analytics .stats-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
+/*
+  Mobile
+*/
 @media (max-width: 900px) {
     .admin-analytics .stats-grid,
     .admin-analytics .charts-row {

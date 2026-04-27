@@ -1,0 +1,67 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Reset
+|--------------------------------------------------------------------------
+| Este ficheiro limpa estilos padrão do browser.
+|
+| Serve para garantir que Chrome, Edge, Safari, etc. começam com uma base
+| parecida. Sem isto, alguns elementos podem ter margens/paddings automáticos.
+|
+| Afecta a aplicação toda.
+|--------------------------------------------------------------------------
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    /*
+      Fonte global.
+      Se mudares aqui, mudas a tipografia geral da plataforma.
+    */
+    font-family: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Links começam sem sublinhado por padrão */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Scrollbar
+|--------------------------------------------------------------------------
+| Personaliza a barra de scroll.
+| Afecta qualquer zona que tenha overflow/scroll.
+|--------------------------------------------------------------------------
+*/
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.25);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.45);
+}

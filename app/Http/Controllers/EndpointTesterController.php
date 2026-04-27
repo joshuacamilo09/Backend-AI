@@ -10,8 +10,8 @@ use Illuminate\Support\Str;
 
 class EndpointTesterController extends Controller
 {
-    /**
-     * Lista os endpoints guardados para um projeto.
+    /*
+       Lista os endpoints guardados para um projeto.
      */
     public function endpoints(Project $project)
     {

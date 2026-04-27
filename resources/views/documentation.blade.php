@@ -8,7 +8,15 @@
     <title>Documentation - BackendAI</title>
 
     <link rel="shortcut icon" href="{{ asset('frontend/assets/icons/network.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/variables.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/layout-base.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/topbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/global-app/components.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/pages/documentation.css') }}">
 </head>
 
 <body>
