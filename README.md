@@ -1,1 +1,1 @@
-Documentos como: Relatório individual, relatorio e etc
+Documentos pedidos no briefing
