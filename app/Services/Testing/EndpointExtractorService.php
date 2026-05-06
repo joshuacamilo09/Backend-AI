@@ -16,14 +16,14 @@ class EndpointExtractorService
      */
     public function extract(Project $project, array $spec): void
     {
-        $entities = $spec['entities'] ?? [];
-        $authEnabled = ($spec['auth']['enabled'] ?? false) === true;
+        $entities = $spec['entities'] ?? []; //lista de entidades
+        $authEnabled = ($spec['auth']['enabled'] ?? false) === true; //se a autenticação está ativada
 
         foreach ($entities as $entity) {
             $name = $entity['name'] ?? null;
 
             if (!$name || $name === 'User') {
-                continue;
+                continue; //ignoramos porque ja existe no sistema.
             }
 
             // O RouteGenerator usa resource plural em kebab.

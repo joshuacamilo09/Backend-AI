@@ -10,11 +10,6 @@ class StoreGenerationService
 {
     /**
      * Guarda projecto, specification e generation inicial.
-     *
-     * @param int $userId ID do utilizador autenticado
-     * @param string $description Descrição original do utilizador
-     * @param array $spec Specification devolvida pela IA
-     * @return array Dados criados
      */
     public function store(int $userId, string $description, array $spec): array
     {

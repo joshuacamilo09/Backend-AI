@@ -22,14 +22,15 @@ class ProjectDocumentationGenerator
         // Carregar relações necessárias para evitar queries repetidas.
         $project->load(['specification', 'endpoints']);
 
+        //extração de dados
         $spec = $project->specification?->spec ?? [];
-
         $projectName = $project->name;
         $framework = ucfirst($project->framework ?? 'Laravel');
         $description = $project->description ?? 'No description provided.';
         $authEnabled = ($spec['auth']['enabled'] ?? false) === true;
         $entities = $spec['entities'] ?? [];
 
+        //arguementos nomeados para o template.
         return $this->buildMarkdown(
             projectName: $projectName,
             framework: $framework,

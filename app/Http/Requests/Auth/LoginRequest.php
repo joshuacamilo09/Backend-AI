@@ -24,6 +24,7 @@ class LoginRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
+     *  isto serve pra dizer que esse metodo devolve um array com chaves strings e valores pode ser outros tipos
      */
     public function rules(): array
     {
@@ -37,20 +38,21 @@ class LoginRequest extends FormRequest
      * Attempt to authenticate the request's credentials.
      *
      * @throws ValidationException
+     * significa que o metodo pode lançar uma exceção
      */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->throttleKey()); //incrementa contador de tentativas
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+        RateLimiter::clear($this->throttleKey()); //se der certo, limpa o contador
     }
 
     /**

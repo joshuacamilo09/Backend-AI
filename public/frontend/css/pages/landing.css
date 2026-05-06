@@ -44,8 +44,6 @@
     --landing-text:      #f1f5f9;
     --landing-muted:     #94a3b8;
     --landing-faint:     #4b5563;
-    --landing-cyan:      #06b6d4;
-    --landing-blue:      #3b82f6;
     --landing-purple-glow: #a855f7;
 }
 
@@ -130,7 +128,7 @@ img {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #818cf8, #a855f7, #06b6d4);
+    background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -172,7 +170,7 @@ img {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: linear-gradient(135deg, #7c3aed, #3b82f6);
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: #fff;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;

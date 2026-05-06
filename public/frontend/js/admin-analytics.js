@@ -8,39 +8,48 @@ const CYAN = "#06b6d4";
 const SUCCESS = "#22c55e";
 const ERROR = "#ef4444";
 
+//escrever texto num elemento html
 function setText(id, value) {
     const el = document.getElementById(id);
     if (el) el.textContent = value;
 }
 
+//limitar um numero entre o min e o max
 function clamp(value, min = 0, max = 100) {
     return Math.min(Math.max(Number(value || 0), min), max);
 }
 
+//formatar um numero
 function formatInteger(value) {
     return Math.round(Number(value || 0)).toLocaleString("en-US");
 }
 
+//formatar decimal
 function formatDecimal(value, digits = 1) {
     return Number(value || 0).toFixed(digits);
 }
 
+//formatar percentagem com uma casa decimal e limita entre 0 e 100
 function formatPercentage(value) {
     return `${clamp(value).toFixed(1)}%`;
 }
 
+//converte de milissegundos para segundos
 function formatSecondsFromMs(ms) {
     return `${(Number(ms || 0) / 1000).toFixed(1)}s`;
 }
 
+//mostra milissegundos
 function formatMilliseconds(ms) {
     return `${Math.round(Number(ms || 0)).toLocaleString("en-US")}ms`;
 }
 
+//converte bytes para megabytes
 function formatBytesToMB(bytes) {
     return `${(Number(bytes || 0) / 1024 / 1024).toFixed(1)} MB`;
 }
 
+//busca de dados ao backend
 async function fetchAnalytics() {
     const response = await fetch("/app-api/admin/analytics", {
         headers: { Accept: "application/json" },
@@ -55,6 +64,7 @@ async function fetchAnalytics() {
     return payload.data;
 }
 
+//pega nos dados do backend e coloca nos cards principais
 function renderKpis(data) {
     setText("totalUsersValue", formatInteger(data.totals?.users));
     setText("totalProjectsValue", formatInteger(data.totals?.projects));
@@ -112,15 +122,18 @@ function makeList(containerId, items) {
     const el = document.getElementById(containerId);
     if (!el) return;
 
+    //se nn tiver dados, mostra uma mensagem
     if (!items || !items.length) {
         el.innerHTML = `<p class="empty-state">No data available.</p>`;
         return;
     }
 
+    //caclcula o maior valor da lista
     const max = Math.max(...items.map((i) => Number(i.total || 0)), 1);
 
     el.innerHTML = items
         .map((item, index) => {
+            //transforma o valr numa percentagem visual pra barra
             const width = clamp((Number(item.total || 0) / max) * 100);
 
             return `

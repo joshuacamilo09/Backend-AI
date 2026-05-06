@@ -6,29 +6,34 @@ use App\Services\Gemini\GeminiClient;
 
 class AIInterpreter
 {
+    //injeção de dependência, o protected cria automaticamente a propriedade.
     public function __construct(
         protected GeminiClient $geminiClient
     ) {}
 
     public function parse(string $description): array
     {
-        $prompt = $this->buildPrompt($description);
+        $prompt = $this->buildPrompt($description); //esse prompt já contém instruções para o modelo, formato esperado, regras, json de exemplo e a descrição do user.
 
+        //envia para o gemini.
         $response = $this->geminiClient->generate($prompt, [
-            'temperature' => 0.2,
+            'temperature' => 0.2, //determina o grau de aleatoriedade da resposta, 0.2 significa que a resposta será mais prática e menos criativa.
         ]);
 
+        //extrai o texto da resposta, assume que o texto está sempre neste caminho.
         $text = $response['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
         if (!$text) {
             throw new \RuntimeException('Resposta inválida do Gemini: texto não encontrado.');
         }
 
+        //limpa o texto
         $text = trim($text);
         $text = preg_replace('/^```json\s*/', '', $text);
         $text = preg_replace('/^```\s*/', '', $text);
         $text = preg_replace('/\s*```$/', '', $text);
 
+        //decodifica o json, ou seja, transforma o texto em um array
         $decoded = json_decode($text, true);
 
         if (!is_array($decoded)) {

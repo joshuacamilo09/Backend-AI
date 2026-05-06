@@ -29,6 +29,7 @@ class GeminiClient
             throw new \RuntimeException('GEMINI_API_KEY não está configurada.');
         }
 
+        //construção do payload no formato exigido pela api gemini
         $payload = [
             'contents' => [
                 [
@@ -97,6 +98,7 @@ class GeminiClient
         start:
 
         try {
+            //enviar request ao Gemini
             $response = Http::timeout($timeout)
                 ->acceptJson()
                 ->asJson()
@@ -129,9 +131,9 @@ class GeminiClient
             );
         } catch (RequestException $e) {
             if ($attempt < $maxRetries) {
-                usleep(($delaysInMs[$attempt] ?? 12000) * 1000);
+                usleep(($delaysInMs[$attempt] ?? 12000) * 1000); //conversão de ms → µs.
                 $attempt++;
-                goto start;
+                goto start; // evita duplicação de código, fácil de controlar retries.
             }
 
             throw new \RuntimeException(

@@ -32,6 +32,7 @@ class EndpointTesterController extends Controller
      */
     public function run(Request $request)
     {
+        //validar o input
         $validated = $request->validate([
             'endpoint_id' => ['required', 'exists:project_endpoints,id'],
             'base_url' => ['required', 'url'],
@@ -41,16 +42,18 @@ class EndpointTesterController extends Controller
             'body' => ['nullable', 'array'],
         ]);
 
+        //carrega o endpoint da base de dados
         $endpoint = ProjectEndpoint::findOrFail($validated['endpoint_id']);
 
         $method = strtoupper($validated['method']);
         $baseUrl = rtrim($validated['base_url'], '/');
         $path = '/' . ltrim($validated['path'], '/');
-
         $url = $baseUrl . $path;
+        //isto tudo acima constroi o url
 
         $headers = $validated['headers'] ?? [];
         $body = $validated['body'] ?? [];
+        //prepara os headers e o body
 
         $startedAt = microtime(true);
 
@@ -63,6 +66,7 @@ class EndpointTesterController extends Controller
                 ->acceptJson()
                 ->timeout(30);
 
+            //fazemos o request, o match serve para verificar o metodo http
             $response = match ($method) {
                 'GET' => $client->get($url),
                 'POST' => $client->post($url, $body),

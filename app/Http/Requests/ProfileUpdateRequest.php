@@ -13,6 +13,7 @@ class ProfileUpdateRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
+     * isto serve pra dizer que esse metodo devolve um array com chaves strings e valores pode ser outros tipos
      */
     public function rules(): array
     {

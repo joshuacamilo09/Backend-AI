@@ -23,6 +23,7 @@ class DownloadGeneratedBackendController extends Controller
 
         $zipPath = $generation->output_path;
 
+        //verifica se o ficheiro existe no sistema de ficheiro
         if (!$zipPath || !File::exists($zipPath)) {
             abort(404, 'ZIP não encontrado para esta geração.');
         }

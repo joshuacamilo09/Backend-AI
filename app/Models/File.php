@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
+    //permite criar em massa
     protected $fillable = [
         'generation_id',
         'path',

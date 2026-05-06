@@ -63,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
      */
     Route::prefix('app-api')->group(function () {
 
-Route::get('/admin/analytics', [AnalyticsController::class, 'admin'])
+    Route::get('/admin/analytics', [AnalyticsController::class, 'admin'])
     ->middleware('admin')
     ->name('app.admin.analytics');
 

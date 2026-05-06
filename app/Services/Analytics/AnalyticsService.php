@@ -24,7 +24,6 @@ class AnalyticsService
         $totalGenerations = Generation::count();
         $totalEndpoints = ProjectEndpoint::count();
         $totalDocumentations = ProjectDocumentation::count();
-
         $completedGenerations = Generation::where('status', 'completed')->count();
         $failedGenerations = Generation::where('status', 'failed')->count();
 
