@@ -1,0 +1,260 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Templates & Docs Page
+|--------------------------------------------------------------------------
+| Este ficheiro contém estilos específicos de:
+| - Templates
+| - Documentation cards
+|
+| NÃO deve conter:
+| - sidebar
+| - topbar
+| - botões globais
+| - layout base
+|--------------------------------------------------------------------------
+*/
+
+
+/* =========================================================
+   GRID (Templates + Docs)
+   ========================================================= */
+
+/*
+  Grid principal de templates
+
+  auto-fill → cria colunas automaticamente
+  minmax → garante largura mínima de cada card
+
+  👉 Se quiseres cards maiores:
+     muda 280px → 320px
+*/
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/*
+  Grid de docs (ligeiramente diferente)
+
+  Aqui usamos 2 colunas fixas
+*/
+.docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 1100px) {
+    .docs-grid,
+    .template-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   TEMPLATE CARD
+   ========================================================= */
+
+/*
+  Card base de template
+
+  ⚠️ Usa .card do components.css como base,
+  isto aqui é apenas refinamento.
+*/
+.template-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*
+  Descrição do template
+*/
+.template-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 10px 0 16px;
+}
+
+/*
+  Footer do card (botões)
+*/
+.template-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* =========================================================
+   DOC CARD (documentação)
+   ========================================================= */
+
+/*
+  Card completo da documentação
+
+  ⚠️ Este NÃO usa só .card,
+  tem um design próprio (mais fancy)
+*/
+.doc-card {
+    display: block;
+    text-decoration: none;
+
+    background: linear-gradient(
+        180deg,
+        rgba(19, 28, 49, 0.92) 0%,
+        rgba(16, 24, 43, 0.96) 100%
+    );
+
+    border: 1px solid rgba(90, 114, 168, 0.18);
+    border-radius: 16px;
+
+    padding: 18px 18px 16px;
+
+    transition: transform 0.18s ease,
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
+
+    box-shadow: 0 0 0 1px rgba(19, 36, 78, 0.08) inset;
+}
+
+/*
+  Hover (efeito premium)
+*/
+.doc-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96, 165, 250, 0.35);
+    box-shadow: 0 10px 30px rgba(2, 8, 23, 0.32);
+}
+
+
+/* =========================================================
+   DOC CARD STRUCTURE
+   ========================================================= */
+
+/*
+  Parte de cima (icon + tag)
+*/
+.doc-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+/*
+  Ícone
+*/
+.doc-card-icon {
+    width: 18px;
+    height: 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.95;
+}
+
+.doc-card-icon img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/*
+  Link externo (setinha etc)
+*/
+.doc-card-external {
+    color: #7aa2ff;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/*
+  Tag (ex: API, Guide, etc)
+*/
+.doc-card-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 8px;
+    border-radius: 8px;
+
+    background: rgba(120, 139, 180, 0.12);
+    border: 1px solid rgba(120, 139, 180, 0.14);
+
+    color: #98a6c7;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+/*
+  Título
+*/
+.doc-card-title {
+    margin: 0 0 10px;
+
+    color: #f8fafc;
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+}
+
+/*
+  Descrição
+*/
+.doc-card-description {
+    margin: 0;
+
+    color: #8fa0bf;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+
+/*
+  Footer (entidades + link)
+*/
+.template-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/*
+  Texto secundário
+*/
+.template-entities {
+    color: #98a6c7;
+    font-size: 0.82rem;
+}
+
+/*
+  Link de ação
+*/
+.doc-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #6d9cff;
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.doc-card-link img {
+    width: 13px;
+    height: 13px;
+}

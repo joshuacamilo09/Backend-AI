@@ -1,0 +1,55 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Variables
+|--------------------------------------------------------------------------
+| Este ficheiro guarda os valores globais do design system.
+|
+| Aqui ficam:
+| - cores principais;
+| - cores de texto;
+| - superfícies/cards;
+| - sombras;
+| - tamanhos reutilizáveis.
+|
+| Se quiseres mudar a paleta da aplicação inteira, mudas aqui.
+| Isto afecta todas as páginas que importarem este ficheiro.
+|--------------------------------------------------------------------------
+*/
+
+:root {
+    /* Cor de fundo principal da plataforma */
+    --bg: #0b0d17;
+
+    /* Superfícies escuras usadas em sidebar, cards e blocos */
+    --surface: #0e1020;
+    --surface-2: #121525;
+    --surface-3: #161930;
+
+    /* Texto principal e texto secundário */
+    --text: #e8eaf0;
+    --muted: #7b82a0;
+
+    /* Bordas subtis usadas em cards, inputs, tabelas e sidebar */
+    --border: rgba(255, 255, 255, 0.08);
+
+    /* Cores principais da marca BackendAI */
+    --accent: #7c3aed;
+    --accent-hover: #8b49f5;
+    --accent-glow: rgba(124, 58, 237, 0.18);
+    --accent-active-bg: rgba(124, 58, 237, 0.22);
+
+    /* Cores funcionais */
+    --success: #22c55e;
+    --warning: #f97316;
+    --error: #ef4444;
+
+    /* Cores auxiliares para gráficos */
+    --chart-bar: #3d2f7a;
+    --chart-bar-active: #a855f7;
+
+    /* Sombra padrão para elementos destacados */
+    --shadow: rgba(0, 0, 0, 0.45);
+
+    /* Largura fixa da sidebar desktop */
+    --sidebar-width: 260px;
+}

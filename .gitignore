@@ -1,0 +1,37 @@
+# Environment files
+.env
+.env.backup
+.env.production
+/auth.json
+
+# IDE / editor settings
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+.phpactor.json
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs and caches
+*.log
+.phpunit.result.cache
+
+# Laravel / PHP runtime files
+/public/storage
+/public/build
+/public/hot
+/storage/*.key
+/storage/pail
+/vendor
+
+# Node dependencies
+/node_modules
+
+# Local machine / hosting config
+Homestead.json
+Homestead.yaml

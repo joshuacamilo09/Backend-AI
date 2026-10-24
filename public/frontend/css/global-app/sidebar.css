@@ -1,0 +1,159 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Sidebar
+|--------------------------------------------------------------------------
+| Controla apenas a navegação lateral.
+|
+| Afecta:
+| - logo;
+| - menu lateral;
+| - links activos;
+| - ícones da sidebar.
+|
+| Não colocar aqui estilos de cards, tabelas ou conteúdo das páginas.
+|--------------------------------------------------------------------------
+*/
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--surface);
+    padding: 24px 18px;
+    border-right: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    /*
+      Mantém a sidebar fixa mesmo quando a página faz scroll.
+    */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 50;
+}
+
+/*
+  Logo BackendAI no topo.
+*/
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+
+    margin-bottom: 36px;
+}
+
+.logo span {
+    margin-left: -10px;
+    background: var(--chart-bar-active);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo-icon {
+    width: 26px;
+    height: 26px;
+}
+
+/*
+  Lista de links da sidebar.
+*/
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px 14px;
+    border-radius: 10px;
+
+    color: var(--muted);
+    font-size: 14px;
+
+    transition: background 120ms ease, color 120ms ease;
+}
+
+/*
+  Estado hover: quando o rato passa por cima.
+*/
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+}
+
+/*
+  Estado activo: página actual.
+*/
+.menu-item.active {
+    background: var(--accent-active-bg);
+    color: #fff;
+    font-weight: 600;
+}
+
+/*
+  Ícones do menu.
+*/
+.menu-item .icon {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(0.65);
+}
+
+.menu-item.active .icon {
+    filter: brightness(0) invert(1);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsivo Sidebar
+|--------------------------------------------------------------------------
+| Em ecrãs pequenos, a sidebar vira barra superior horizontal.
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 980px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+
+        flex-direction: row;
+        align-items: center;
+
+        padding: 14px 18px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+        margin-bottom: 0;
+        margin-right: 16px;
+        flex-shrink: 0;
+    }
+
+    .menu {
+        flex-direction: row;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    .menu-item {
+        white-space: nowrap;
+    }
+}

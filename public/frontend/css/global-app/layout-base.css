@@ -1,0 +1,119 @@
+/*
+|--------------------------------------------------------------------------
+| BackendAI - Layout Base
+|--------------------------------------------------------------------------
+| Controla a estrutura geral das páginas autenticadas.
+|
+| Usa-se em páginas como:
+| - Dashboard
+| - Generate Backend
+| - Projects
+| - Templates
+| - Documentation
+| - API Tester
+| - Settings
+| - Analytics
+|
+| Não deve conter estilos específicos de uma página.
+|--------------------------------------------------------------------------
+*/
+
+/*
+  Container geral da aplicação autenticada.
+  A sidebar fica fixa e o conteúdo ocupa o resto da página.
+*/
+.dashboard {
+    min-height: 100vh;
+}
+
+/*
+  Área principal da página.
+  margin-left cria espaço para a sidebar fixa.
+*/
+.content {
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    padding: 30px 34px;
+}
+
+/*
+  Secção hero usada no topo das páginas.
+  Exemplo: "Welcome back", "Generate Backend", "Admin Analytics".
+*/
+.hero {
+    margin-bottom: 24px;
+}
+
+.hero-text h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.hero-text h1 span {
+    color: var(--chart-bar-active);
+}
+
+.hero-text p {
+    font-size: 15px;
+    color: var(--muted);
+}
+
+/*
+  Caixa principal usada em algumas páginas para envolver conteúdo.
+*/
+.page-shell {
+    padding: 28px 34px 34px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsivo
+|--------------------------------------------------------------------------
+| Em ecrãs pequenos, a sidebar deixa de ser fixa e passa para cima.
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 980px) {
+    .dashboard {
+        min-height: 100vh;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 540px) {
+    .content {
+        padding: 16px;
+    }
+
+    .hero-text h1 {
+        font-size: 26px;
+    }
+}
