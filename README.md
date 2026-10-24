@@ -1,59 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Backend AI: Laravel Backend Generator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Describe a system in plain language, for example *"a library where members borrow books, with login"*, and get back a **ready-to-run Laravel backend** as a ZIP: migrations, models with relationships, form requests, services, CRUD controllers, API routes and optional authentication.
 
-## About Laravel
+The platform also documents the generated API, lets you test its endpoints from the browser, and gives admins an analytics dashboard of how it's being used.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> University team project (IADE – Universidade Europeia, 2026). Design documents, user flows, REST API and database schema are on the [`Documentos`](https://github.com/joshuacamilo09/Backend-AI/tree/Documentos) branch.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## How generation works
 
-## Learning Laravel
+```
+ "A library where members borrow books..."
+                 │
+                 ▼
+ ┌───────────────────────────────┐   prompt with strict JSON contract, temperature 0.2
+ │ AIInterpreter                 │ ─────────────────────────────────────────────▶ Gemini
+ │ GeminiClient: retries,        │ ◀───────────────── JSON specification ────────
+ │ exponential backoff, fallback │
+ └───────────────┬───────────────┘
+                 ▼
+ Specification (stored)  { project_name, auth, entities[ fields, relations ] }
+                 ▼
+ ┌───────────────────────────────────────────────────────────────────────────┐
+ │ LaravelProjectGenerator                                                  │
+ │  1. composer create-project laravel/laravel  (a real, fresh project)     │
+ │  2. docs/specification.json + README                                     │
+ │  3. Models + relationships   (hasMany / belongsTo)                       │
+ │  4. MigrationGenerator  5. ServiceGenerator  6. RequestGenerator         │
+ │  7. ControllerGenerator 8. AuthGenerator (Sanctum)  9. RouteGenerator    │
+ └───────────────┬───────────────────────────────────────────────────────────┘
+                 ▼
+ ZipExporter → download   ·   EndpointExtractor → endpoints for the tester
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+The model is used only for what it's good at, **turning free text into a structured spec**. All code is produced by **deterministic generators** from that spec, so the output is predictable, reviewable and always follows the same conventions.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The Gemini client retries temporary errors (`429`, `5xx`) with **exponential backoff** and can fall back to a second model, so a busy model doesn't break a generation.
 
-## Laravel Sponsors
+## Features
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Generate backend**: from a description or from a template, with optional auth
+- **Projects & generations**: history of every project, its spec and generation status; download any generation as a ZIP
+- **Documentation**: auto-generated API documentation per project, exportable as **PDF**
+- **API tester**: lists the generated endpoints and sends real requests to a running instance (including Bearer-protected routes)
+- **Admin analytics**: users and generations per day, framework and template usage, peak activity hour, users by country / city / continent
+- **Accounts**: registration, login, email verification, password reset and profile (Laravel Breeze); admin-only routes behind an `AdminMiddleware`
 
-### Premium Partners
+## Code structure
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```
+app/
+├── Services/
+│   ├── AI/AIInterpreter.php              description → JSON spec (prompt + parsing)
+│   ├── Gemini/GeminiClient.php           HTTP client: retries, backoff, fallback model
+│   ├── Generation/
+│   │   ├── LaravelProjectGenerator.php   orchestrates the generation pipeline
+│   │   ├── Laravel/*Generator.php        migrations, controllers, services, requests, routes, auth
+│   │   ├── StoreGenerationService.php    persists project, spec and generation
+│   │   └── ZipExporter.php
+│   ├── Documentation/                    API documentation generator
+│   ├── Testing/EndpointExtractorService.php
+│   └── Analytics/                        admin and user metrics
+├── Http/Controllers/                     thin controllers per feature
+├── Http/Middleware/AdminMiddleware.php
+└── Models/                               Project, Specification, Generation, File, ProjectEndpoint, ProjectDocumentation
+database/migrations/                      schema of the platform
+public/frontend/                          page-level CSS and JavaScript
+resources/views/                          Blade views
+```
 
-## Contributing
+## Running locally
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Requirements: PHP 8.2+, Composer, Node.js, PostgreSQL and a [Gemini API key](https://aistudio.google.com/app/apikey).
 
-## Code of Conduct
+```bash
+cp .env.example .env          # DB credentials and GEMINI_API_KEY
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed --class=FinalDemoDataSeeder   # optional demo data
+npm install && npm run build
+php artisan serve             # http://localhost:8000
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Generation runs `composer create-project`, so Composer must be available to the PHP process.
 
-## Security Vulnerabilities
+## Tech stack
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+PHP 8.2 · Laravel 12 · PostgreSQL · Google Gemini API · Laravel Breeze · Sanctum (in generated projects) · DomPDF · Blade · JavaScript · Vite
